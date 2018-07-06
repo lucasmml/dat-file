@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import dat.dto.DadosOutDTO;
-import dat.filereader.FileReader;
-import dat.filereader.FileWriter;
+import dat.file.FileReader;
+import dat.file.FileWriter;
 
 public class Runner {
 

@@ -1,4 +1,4 @@
-package dat.filereader;
+package dat.file;
 
 import java.io.File;
 import java.io.FileNotFoundException;
