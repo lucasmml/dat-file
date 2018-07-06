@@ -2,8 +2,6 @@ package dat.filereader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,6 +9,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import dat.dto.ClienteDTO;
+import dat.dto.DadosOutDTO;
 import dat.dto.ItemDTO;
 import dat.dto.VendaDTO;
 import dat.dto.VendedorCountDTO;
@@ -34,7 +33,6 @@ public class FileReader {
 			} else if (var[0].equals("003")) {
 				addVenda(var);
 			}
-			System.out.println(line);
 		}
 	}
 
@@ -93,31 +91,19 @@ public class FileReader {
 		}
 	}
 
-	public static void summarize() {
+	public static DadosOutDTO summarize() {
 		Integer quantidadeClientes = setClientes.size();
 		Integer quantidadeVendedores = setVendedores.size();
 		Integer idVendaValorMaisAlto = getIdVendaValorMaisAlto();
 		String nomeVendedorQueMenosVendeu = getVendedorQueMenosVendeu();
-
-		createOutDatFile(quantidadeClientes, quantidadeVendedores, idVendaValorMaisAlto, nomeVendedorQueMenosVendeu);
-	}
-
-	private static void createOutDatFile(Integer quantidadeClientes, Integer quantidadeVendedores,
-			Integer idVendaValorMaisAlto, String nomeVendedorQueMenosVendeu) {
-
-		try {
-			PrintWriter writer = new PrintWriter("dados/out/infosSumarizadas.dat.proc", "UTF-8");
-			writer.println("1. Quantidade de Clientes: " + quantidadeClientes);
-			writer.println("2. Quantidade de Vendedores: " + quantidadeVendedores);
-			writer.println("3. ID da Venda de valor mais alto: " + idVendaValorMaisAlto);
-			writer.println("4. Nome do Vendedor que menos vendeu: " + nomeVendedorQueMenosVendeu);
-			writer.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
 		
+		DadosOutDTO dadosOutDTO = new DadosOutDTO();
+		dadosOutDTO.setIdVendaValorMaisAlto(idVendaValorMaisAlto);
+		dadosOutDTO.setNomeVendedorQueMenosVendeu(nomeVendedorQueMenosVendeu);
+		dadosOutDTO.setQuantidadeVendedores(quantidadeVendedores);
+		dadosOutDTO.setQuantidadeClientes(quantidadeClientes);
+		
+		return dadosOutDTO;
 	}
 
 	private static Integer getIdVendaValorMaisAlto() {
